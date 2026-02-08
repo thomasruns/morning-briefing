@@ -1,0 +1,25 @@
+apis:
+  openweather_key: "your_openweather_api_key_here"
+  openai_key: "your_openai_api_key_here"
+  sparkpost_key: "your_sparkpost_api_key_here"
+
+location:
+  city: "San Francisco"
+  country_code: "US"
+
+email:
+  recipient: "your.email@example.com"
+  from_address: "briefing@yourdomain.com"
+  subject: "Your Morning Briefing - {date}"
+
+news:
+  rss_feeds:
+    - "https://feeds.bbci.co.uk/news/rss.xml"
+    - "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+    - "https://feeds.reuters.com/reuters/topNews"
+  max_articles: 10
+  summary_sentences: 3
+
+logging:
+  level: "INFO"
+  retain_days: 30

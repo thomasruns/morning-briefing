@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Morning Briefing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .header .date-time {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0066cc;
+        }
+
+        /* Weather Section */
+        .weather-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .weather-icon {
+            font-size: 48px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .weather-details {
+            flex: 0.25;
+            text-align: center;
+        }
+
+        .weather-temp {
+            font-size: 36px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .weather-condition {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .weather-high-low {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .weather-description {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .hourly-forecast {
+            display: flex;
+            gap: 5px;
+            justify-content: flex-end;
+            flex: 1;
+        }
+
+        .hourly-item {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            background-color: transparent;
+        }
+
+        .hourly-time {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .hourly-icon {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .hourly-rain {
+            font-size: 11px;
+            color: #3b82f6;
+            margin-bottom: 5px;
+        }
+
+        .hourly-temp {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Calendar Section */
+        .event-list {
+            list-style: none;
+        }
+
+        .event-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #0066cc;
+            border-radius: 4px;
+        }
+
+        .event-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .event-time {
+            font-size: 14px;
+            color: #0066cc;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .event-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .event-location {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .no-events {
+            padding: 15px;
+            text-align: center;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* News Section */
+        .article-card {
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            transition: box-shadow 0.2s;
+        }
+
+        .article-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .article-card:hover {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .article-title a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .article-title a:hover {
+            color: #0066cc;
+        }
+
+        .article-meta {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .article-summary {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .article-link {
+            display: inline-block;
+            font-size: 14px;
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .article-link:hover {
+            text-decoration: underline;
+        }
+
+        .no-articles {
+            padding: 15px;
+            text-align: center;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #888;
+            font-size: 12px;
+        }
+
+        /* Mobile Responsive */
+        @media only screen and (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .header .date-time {
+                font-size: 14px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .weather-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .weather-icon {
+                font-size: 40px;
+            }
+
+            .weather-temp {
+                font-size: 32px;
+            }
+
+            .article-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Your Morning Briefing</h1>
+            <div class="date-time">{{date}} at {{time}}</div>
+        </div>
+
+        <div class="content">
+            <!-- Weather Section -->
+            <div class="section">
+                <h2 class="section-title">Weather</h2>
+                {{#weather_available}}
+                <div class="weather-container">
+                    <div class="weather-details">
+                        <div class="weather-temp">{{temperature}}°</div>
+                        <div class="weather-icon">{{weather_icon}}</div>
+                        <div class="weather-condition">{{condition}}</div>
+                        <div class="weather-high-low">{{temp_max}}° / {{temp_min}}°</div>
+                        <div class="weather-description">{{description}}</div>
+                    </div>
+                    {{#has_hourly_forecast}}
+                    <div class="hourly-forecast">
+                        {{#hourly}}
+                        <div class="hourly-item">
+                            <div class="hourly-time">{{time}}</div>
+                            <div class="hourly-temp">{{temperature}}°</div>
+                            <div class="hourly-icon">{{icon}}</div>
+                            <div class="hourly-rain">{{rain_chance}}%</div>
+                        </div>
+                        {{/hourly}}
+                    </div>
+                    {{/has_hourly_forecast}}
+                </div>
+                {{/weather_available}}
+                {{^weather_available}}
+                <div class="no-events">Weather information not available</div>
+                {{/weather_available}}
+            </div>
+
+            <!-- Calendar Section -->
+            <div class="section">
+                <h2 class="section-title">Today's Events</h2>
+                {{#has_events}}
+                <ul class="event-list">
+                    {{#events}}
+                    <li class="event-item">
+                        <div class="event-time">{{time}}</div>
+                        <div class="event-title">{{title}}</div>
+                        {{#location}}
+                        <div class="event-location">{{location}}</div>
+                        {{/location}}
+                    </li>
+                    {{/events}}
+                </ul>
+                {{/has_events}}
+                {{^has_events}}
+                <div class="no-events">No events scheduled for today</div>
+                {{/has_events}}
+            </div>
+
+            <!-- News Section -->
+            <div class="section">
+                <h2 class="section-title">Top News</h2>
+                {{#has_articles}}
+                {{#articles}}
+                <div class="article-card">
+                    <div class="article-title">
+                        <a href="{{link}}" target="_blank">{{title}}</a>
+                    </div>
+                    <div class="article-meta">{{source}} • {{published}}</div>
+                    {{#summary}}
+                    <div class="article-summary">{{summary}}</div>
+                    {{/summary}}
+                    <a href="{{link}}" class="article-link" target="_blank">Read more →</a>
+                </div>
+                {{/articles}}
+                {{/has_articles}}
+                {{^has_articles}}
+                <div class="no-articles">No news articles available</div>
+                {{/has_articles}}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Generated by Morning Briefing System
+        </div>
+    </div>
+</body>
+</html>
