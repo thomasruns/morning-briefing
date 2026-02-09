@@ -178,11 +178,12 @@ def run_briefing(config_path='config.yaml', dry_run=False):
             # Send email
             try:
                 logger.info("Sending email")
+                subject = config['email']['subject'] + f" - {datetime.now().strftime('%B %d, %Y')}"
                 success = send_email(
                     api_key=config['apis']['sparkpost_key'],
                     from_email=config['email']['from_address'],
                     to_email=config['email']['recipient'],
-                    subject=config['email']['subject'],
+                    subject=subject,
                     html_content=html_content
                 )
 

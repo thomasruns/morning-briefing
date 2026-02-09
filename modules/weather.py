@@ -37,7 +37,6 @@ def fetch_weather(api_key, city, country_code, max_retries=3):
 
             if response.status_code == 200:
                 data = response.json()
-                print(data)
                 try:
                     return {
                         'temperature': data['main']['temp'],
