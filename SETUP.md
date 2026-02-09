@@ -162,9 +162,12 @@ email:
 
 news:
   rss_feeds:
-    - "https://feeds.bbci.co.uk/news/rss.xml"
-    - "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
-    - "https://feeds.reuters.com/reuters/topNews"
+    - title: "BBC News"
+      url: "https://feeds.bbci.co.uk/news/rss.xml"
+    - title: "New York Times"
+      url: "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+    - title: "Reuters"
+      url: "https://feeds.reuters.com/reuters/topNews"
     # Add or remove feeds as desired
   max_articles: 10         # Maximum number of articles to fetch
   summary_sentences: 3     # Number of sentences in each AI summary
@@ -206,12 +209,14 @@ python morning_briefing.py --dry-run
 ```
 
 This will:
-1. Open a browser window
-2. Ask you to log in to Google
-3. Request permission to read your calendar
-4. Save a `token.pickle` file for future authentication
+1. Display a URL in the console
+2. You visit this URL in a browser (can be on any device)
+3. Log in to Google and grant calendar read permission
+4. Copy the authorization code from the browser
+5. Paste the code back into the terminal
+6. Save a `token.pickle` file for future authentication
 
-**Note**: If you're setting up on a headless server (no GUI), you'll need to authenticate on your local machine first, then copy the `token.pickle` file to the server.
+**Server Setup Note**: This authentication method works perfectly for headless servers (no GUI). You can visit the URL on your laptop/phone, get the authorization code, and paste it back into the server terminal. After the initial authentication, the `token.pickle` file will be used for automatic token refresh, so you won't need to authenticate again unless you revoke access.
 
 ## Step 5: Test Run
 
@@ -455,11 +460,15 @@ Edit `config.yaml` and add feeds to the `news.rss_feeds` list:
 ```yaml
 news:
   rss_feeds:
-    - "https://feeds.bbci.co.uk/news/rss.xml"
-    - "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
-    - "https://techcrunch.com/feed/"          # Tech news
-    - "https://www.reddit.com/r/news/.rss"    # Reddit news
-    # Add any valid RSS feed URL
+    - title: "BBC News"
+      url: "https://feeds.bbci.co.uk/news/rss.xml"
+    - title: "New York Times"
+      url: "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+    - title: "TechCrunch"
+      url: "https://techcrunch.com/feed/"
+    - title: "Reddit News"
+      url: "https://www.reddit.com/r/news/.rss"
+    # Add any valid RSS feed with a title and URL
 ```
 
 ### Change Briefing Time

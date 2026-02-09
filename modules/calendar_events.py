@@ -54,7 +54,9 @@ def authenticate_google_calendar(credentials_file='credentials.json'):
             try:
                 flow = InstalledAppFlow.from_client_secrets_file(
                     credentials_file, SCOPES)
-                creds = flow.run_local_server(port=0)
+                # Use run_console() for headless server environments
+                # This will print a URL that you visit in a browser, then paste the auth code back
+                creds = flow.run_console()
             except Exception as e:
                 raise CalendarError(f"Failed to authenticate: {e}")
 
