@@ -19,7 +19,9 @@ def test_load_config_success(tmp_path):
             'subject': 'Test Subject'
         },
         'news': {
-            'rss_feeds': ['http://test.com/feed'],
+            'rss_feeds': [
+                {'title': 'Test Feed', 'url': 'http://test.com/feed'}
+            ],
             'max_articles': 5,
             'summary_sentences': 2
         }

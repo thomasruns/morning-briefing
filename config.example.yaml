@@ -10,7 +10,7 @@ location:
 email:
   recipient: "your.email@example.com"
   from_address: "briefing@yourdomain.com"
-  subject: "Your Morning Briefing - {date}"
+  subject: "Your Morning Briefing"
 
 news:
   rss_feeds:

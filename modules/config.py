@@ -58,19 +58,19 @@ def load_config(config_path: str = 'config.yaml') -> Dict[str, Any]:
     if 'rss_feeds' not in config['news']:
         raise ConfigError("Missing required configuration: news.rss_feeds")
 
-    if not isinstance(config['news']['rss_feeds'], dict):
-        raise ConfigError("Configuration error: news.rss_feeds must be a dictionary")
+    if not isinstance(config['news']['rss_feeds'], list):
+        raise ConfigError("Configuration error: news.rss_feeds must be a list")
 
     if len(config['news']['rss_feeds']) == 0:
         raise ConfigError("Configuration error: news.rss_feeds must have at least one feed")
 
     # Validate each feed has title and url
-    for feed_key, feed_data in config['news']['rss_feeds'].items():
+    for idx, feed_data in enumerate(config['news']['rss_feeds']):
         if not isinstance(feed_data, dict):
-            raise ConfigError(f"Configuration error: news.rss_feeds.{feed_key} must be a dictionary")
+            raise ConfigError(f"Configuration error: news.rss_feeds[{idx}] must be a dictionary")
         if 'title' not in feed_data:
-            raise ConfigError(f"Configuration error: news.rss_feeds.{feed_key} missing 'title'")
+            raise ConfigError(f"Configuration error: news.rss_feeds[{idx}] missing 'title'")
         if 'url' not in feed_data:
-            raise ConfigError(f"Configuration error: news.rss_feeds.{feed_key} missing 'url'")
+            raise ConfigError(f"Configuration error: news.rss_feeds[{idx}] missing 'url'")
 
     return config

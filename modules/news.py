@@ -21,7 +21,7 @@ def fetch_news(rss_feeds, max_articles=10):
     Fetches articles from multiple RSS feeds.
 
     Args:
-        rss_feeds: Dictionary of RSS feeds with format {feed_key: {title: str, url: str}}
+        rss_feeds: List of RSS feed dictionaries with format [{title: str, url: str}, ...]
         max_articles: Maximum number of articles to return (default: 10)
 
     Returns:
@@ -30,7 +30,7 @@ def fetch_news(rss_feeds, max_articles=10):
     """
     all_articles = []
 
-    for idx, (feed_key, feed_data) in enumerate(rss_feeds.items()):
+    for idx, feed_data in enumerate(rss_feeds):
         try:
             # Add delay between feeds (except for the first one)
             if idx > 0:

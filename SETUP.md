@@ -158,7 +158,7 @@ location:
 email:
   recipient: "your.email@example.com"           # Your email address
   from_address: "briefing@yourdomain.com"       # Sender address (must be verified in SparkPost)
-  subject: "Your Morning Briefing - {date}"     # Email subject ({date} will be replaced with current date)
+  subject: "Your Morning Briefing"     # Email subject will have the current date appended to it
 
 news:
   rss_feeds:

@@ -21,8 +21,9 @@ def test_fetch_news_success():
         )
     ]
 
-    with patch('feedparser.parse', return_value=mock_feed):
-        articles = fetch_news(['http://test.com/feed'], max_articles=2)
+    with patch('requests.get') as mock_get, patch('feedparser.parse', return_value=mock_feed):
+        mock_get.return_value.text = '<rss></rss>'
+        articles = fetch_news([{'title': 'Test Feed', 'url': 'http://test.com/feed'}], max_articles=2)
 
         assert len(articles) == 2
         assert articles[0]['title'] == 'Test Article 1'
@@ -42,8 +43,12 @@ def test_fetch_news_multiple_feeds():
              published='Mon, 01 Jan 2024 11:00:00 GMT', summary='Summary 2')
     ]
 
-    with patch('feedparser.parse', side_effect=[mock_feed1, mock_feed2]):
-        articles = fetch_news(['http://feed1.com', 'http://feed2.com'], max_articles=5)
+    with patch('requests.get') as mock_get, patch('feedparser.parse', side_effect=[mock_feed1, mock_feed2]):
+        mock_get.return_value.text = '<rss></rss>'
+        articles = fetch_news([
+            {'title': 'NPR', 'url': 'https://feeds.npr.org/1001/rss.xml'},
+            {'title': 'The Verge', 'url': 'https://www.theverge.com/tech'}
+        ], max_articles=5)
 
         assert len(articles) == 2
 
